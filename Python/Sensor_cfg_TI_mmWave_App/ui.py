@@ -291,6 +291,151 @@ class MainWindow(QMainWindow, QWidget):
                                         ('cfarFovCfg', '-1 0 0 49.99'), ('cfarFovCfg', '-1 1 -1 1.00'), ('calibData', '0 0 0'), ('sensorStart', '')]
 
         #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        self.AWR2944EVM = {
+            "Transmit Antenna Gain [dB]": 7,
+            "Receive Antenna Gain [dB]": 7,
+            "Transmit Power [dBm]": 13.5,  # found
+            "Maximum IF Frequency (MHz)": 15,  # found
+            "Maximum Complex ADC Sampling Rate [MSps]": 37.5,  # found
+            "Minimum Complex ADC Sampling Rate [MSps]": 2,  # found it okay
+            "3dB Azimuth FOV [deg.]": 80,  # found not sure
+            "3dB Elevation FOV [deg.]": 40,  # not found not sure
+            "Memory [MB]": 2.5,  # found
+            "Radar data cube RAM [MB]": 2.5,  # found
+            "RX noise figure [dB]": 12,  # found
+            "Phase noise at 1MHz [dBc/Hz]": -96,  # found
+            "Maximum Rx Gain [dB]": 44,  # found
+            "Rx Gain Step Size [dB]": 2,  # found
+            "Number of Rx Antennas": 4,  # found
+            "Number of Tx Antennas": 4,  # found
+            "ADC Resolution [bits]": 16,  # found
+            "DSP Type": "C66x @360MHz"  # found
+        }
+
+        # self.AWR2944EVM_best_range = [('sensorStop', ''), ('flushCfg', ''), ('dfeDataOutputMode', '1'),
+        #                               ('channelCfg', '15 7 0'), ('adcCfg', '2 0'),
+        #                               ('adcbufCfg', '-1 1 1 1 1'), #('lowPower', '0 0'),
+        #                               ('profileCfg', '0 77 315 2.5 9.65 0 0 100 1 256 41666 0 0 30'),
+        #                               ('chirpCfg', '0 0 0 0 0 0 0 1'), ('chirpCfg', '1 1 0 0 0 0 0 4'),
+        #                               ('chirpCfg', '2 2 0 0 0 0 0 2'), ('frameCfg', '0 2 16 0 256 100 1 0'),
+        #                               ('lowPower', '0 0'), ('guiMonitor', '-1 1 1 0 0 0 1'), ('antGeometryCfg',
+        #                                                                                       '1 0 1 1 1 2 1 3 0 2 0 3 0 4 0 5 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 0.5 0.8'),
+        #                               ('cfarCfg', '-1 0 2 8 4 3 0 15 1'), ('cfarCfg', '-1 1 0 4 2 3 1 15 1'),
+        #                               ('multiObjBeamForming', '-1 1 0.5'), ('calibDcRangeSig', '-1 0 -5 8 256'),
+        #                               ('clutterRemoval', '-1 0'), ('cfarFovCfg', '-1 0 0 49.99'),
+        #                               ('cfarFovCfg', '-1 1 -1 1.00'),
+        #                               ('compRangeBiasAndRxChanPhase',
+        #                                '0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0'),
+        #                               ('extendedMaxVelocity', '-1 0'),
+        #                               ('measureRangeBiasAndRxChanPhase', '0 1.5 0.2'),
+        #                               ('aoaFovCfg', '-1 -90 90 -90 90'), ('calibData', '0 0 0'), ('sensorStart', '')]
+
+        ## Reorder (AWR2944EVM_best_range) because AWR2944 has different configuration order
+        self.AWR2944EVM_best_range = [('sensorStop', ''), ('flushCfg', ''), ('dfeDataOutputMode', '1'),
+                                      ('channelCfg', '15 7 0'), ('adcCfg', '2 0'),
+                                      ('adcbufCfg', '-1 1 1 1 1'), #('lowPower', '0 0'),
+                                      ('profileCfg', '0 77 315 2.5 9.65 0 0 100 1 256 41666 0 0 30'),
+                                      ('chirpCfg', '0 0 0 0 0 0 0 1'), ('chirpCfg', '1 1 0 0 0 0 0 4'),
+                                      ('frameCfg', '0 2 16 0 256 100 1 0'), ('chirpCfg', '2 2 0 0 0 0 0 2'),
+                                      ('lowPower', '0 0'), ('guiMonitor', '-1 1 1 0 0 0 1'), ('antGeometryCfg',
+                                                                                              '1 0 1 1 1 2 1 3 0 2 0 3 0 4 0 5 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 0.5 0.8'),
+                                      ('cfarCfg', '-1 0 2 8 4 3 0 15 1'), ('cfarCfg', '-1 1 0 4 2 3 1 15 1'),
+                                      ('multiObjBeamForming', '-1 1 0.5'), ('calibDcRangeSig', '-1 0 -5 8 256'),
+                                      ('clutterRemoval', '-1 0'), ('cfarFovCfg', '-1 0 0 49.99'),
+                                      ('cfarFovCfg', '-1 1 -1 1.00'),
+                                      ('compRangeBiasAndRxChanPhase',
+                                       '0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0'),
+                                      ('extendedMaxVelocity', '-1 0'),
+                                      ('measureRangeBiasAndRxChanPhase', '0 1.5 0.2'),
+                                      ('aoaFovCfg', '-1 -90 90 -90 90'), ('calibData', '0 0 0'), ('sensorStart', '')]
+
+        # self.AWR2944EVM_best_range_resolution = [('sensorStop', ''), ('flushCfg', ''), ('dfeDataOutputMode', '1'),
+        #                                          ('channelCfg', '15 7 0'), ('adcCfg', '2 0'),
+        #                                          ('adcbufCfg', '-1 1 1 1 1'), #('lowPower', '0 0'),
+        #                                          ('profileCfg', '0 77 267 2.5 57.14 0 0 70 1 272 5070 0 0 30'),
+        #                                          ('chirpCfg', '0 0 0 0 0 0 0 1'), ('chirpCfg', '1 1 0 0 0 0 0 4'),
+        #                                          ('chirpCfg', '2 2 0 0 0 0 0 2'), ('frameCfg', '0 2 16 0 272 100 1 0'),
+        #                                          ('lowPower', '0 0'), ('guiMonitor', '-1 1 1 0 0 0 1'),
+        #                                          ('antGeometryCfg',
+        #                                           '1 0 1 1 1 2 1 3 0 2 0 3 0 4 0 5 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 0.5 0.8'),
+        #                                          ('cfarCfg', '-1 0 2 8 4 3 0 15 1'), ('cfarCfg', '-1 1 0 4 2 3 1 15 1'),
+        #                                          ('multiObjBeamForming', '-1 1 0.5'),
+        #                                          ('calibDcRangeSig', '-1 0 -5 8 256'),
+        #                                          ('clutterRemoval', '-1 0'), ('cfarFovCfg', '-1 0 0 8.69'),
+        #                                          ('cfarFovCfg', '-1 1 -1 1.00'),
+        #                                          ('compRangeBiasAndRxChanPhase',
+        #                                           '0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0'),
+        #                                          ('extendedMaxVelocity', '-1 0'),
+        #                                          ('measureRangeBiasAndRxChanPhase', '0 1.5 0.2'),
+        #                                          ('aoaFovCfg', '-1 -90 90 -90 90'), ('calibData', '0 0 0'),
+        #                                          ('sensorStart', '')]
+        ## Reorder (AWR2944EVM_best_range_resolution) because AWR2944 has different configuration order
+        self.AWR2944EVM_best_range_resolution = [('sensorStop', ''), ('flushCfg', ''), ('dfeDataOutputMode', '1'),
+                                                 ('channelCfg', '15 7 0'), ('adcCfg', '2 0'),
+                                                 ('adcbufCfg', '-1 1 1 1 1'), #('lowPower', '0 0'),
+                                                 ('profileCfg', '0 77 267 2.5 57.14 0 0 70 1 272 5070 0 0 30'),
+                                                 ('chirpCfg', '0 0 0 0 0 0 0 1'), ('chirpCfg', '1 1 0 0 0 0 0 4'),
+                                                 ('frameCfg', '0 2 16 0 272 100 1 0'), ('chirpCfg', '2 2 0 0 0 0 0 2'),
+                                                 ('lowPower', '0 0'), ('guiMonitor', '-1 1 1 0 0 0 1'),
+                                                 ('antGeometryCfg',
+                                                  '1 0 1 1 1 2 1 3 0 2 0 3 0 4 0 5 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 0.5 0.8'),
+                                                 ('cfarCfg', '-1 0 2 8 4 3 0 15 1'), ('cfarCfg', '-1 1 0 4 2 3 1 15 1'),
+                                                 ('multiObjBeamForming', '-1 1 0.5'),
+                                                 ('calibDcRangeSig', '-1 0 -5 8 256'),
+                                                 ('clutterRemoval', '-1 0'), ('cfarFovCfg', '-1 0 0 8.69'),
+                                                 ('cfarFovCfg', '-1 1 -1 1.00'),
+                                                 ('compRangeBiasAndRxChanPhase',
+                                                  '0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0'),
+                                                 ('extendedMaxVelocity', '-1 0'),
+                                                 ('measureRangeBiasAndRxChanPhase', '0 1.5 0.2'),
+                                                 ('aoaFovCfg', '-1 -90 90 -90 90'), ('calibData', '0 0 0'),
+                                                 ('sensorStart', '')]
+
+        # self.AWR2944EVM_best_velocity_resolution = [('sensorStop', ''), ('flushCfg', ''), ('dfeDataOutputMode', '1'),
+        #                                             ('channelCfg', '15 7 0'), ('adcCfg', '2 0'),
+        #                                             ('adcbufCfg', '-1 1 1 1 1'), #('lowPower', '0 0'),
+        #                                             ('profileCfg', '0 77 115 2.5 15 0 0 100 1 64 5565 0 0 30'),
+        #                                             ('chirpCfg', '0 0 0 0 0 0 0 1'), ('chirpCfg', '1 1 0 0 0 0 0 4'),
+        #                                             ('chirpCfg', '2 2 0 0 0 0 0 2'),
+        #                                             ('frameCfg', '0 2 128 0 64 100 1 0'),
+        #                                             ('lowPower', '0 0'), ('guiMonitor', '-1 1 1 0 0 0 1'),
+        #                                             ('antGeometryCfg',
+        #                                              '1 0 1 1 1 2 1 3 0 2 0 3 0 4 0 5 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 0.5 0.8'),
+        #                                             ('cfarCfg', '-1 0 2 8 4 3 0 15 1'),
+        #                                             ('cfarCfg', '-1 1 0 8 4 4 1 15 1'),
+        #                                             ('multiObjBeamForming', '-1 1 0.5'),
+        #                                             ('calibDcRangeSig', '-1 0 -5 8 256'),
+        #                                             ('clutterRemoval', '-1 0'), ('cfarFovCfg', '-1 0 0 6.67'),
+        #                                             ('cfarFovCfg', '-1 1 -2.49 2.49'),
+        #                                             ('compRangeBiasAndRxChanPhase',
+        #                                              '0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0'),
+        #                                             ('extendedMaxVelocity', '-1 0'),
+        #                                             ('measureRangeBiasAndRxChanPhase', '0 1.5 0.2'),
+        #                                             ('aoaFovCfg', '-1 -90 90 -90 90'), ('calibData', '0 0 0'),
+        #                                             ('sensorStart', '')]
+
+        ## Reorder (AWR2944EVM_best_velocity_resolution) because AWR2944 has different configuration order
+        self.AWR2944EVM_best_velocity_resolution = [('sensorStop', ''), ('flushCfg', ''), ('dfeDataOutputMode', '1'),
+                                                    ('channelCfg', '15 7 0'), ('adcCfg', '2 0'),
+                                                    ('adcbufCfg', '-1 1 1 1 1'), #('lowPower', '0 0'),
+                                                    ('profileCfg', '0 77 115 2.5 15 0 0 100 1 64 5565 0 0 30'),
+                                                    ('chirpCfg', '0 0 0 0 0 0 0 1'), ('chirpCfg', '1 1 0 0 0 0 0 4'),
+                                                    ('frameCfg', '0 2 128 0 64 100 1 0'), ('chirpCfg', '2 2 0 0 0 0 0 2'),
+                                                    ('lowPower', '0 0'), ('guiMonitor', '-1 1 1 0 0 0 1'),
+                                                    ('antGeometryCfg',
+                                                     '1 0 1 1 1 2 1 3 0 2 0 3 0 4 0 5 1 4 1 5 1 6 1 7 1 8 1 9 1 10 1 11 0.5 0.8'),
+                                                    ('cfarCfg', '-1 0 2 8 4 3 0 15 1'),
+                                                    ('cfarCfg', '-1 1 0 8 4 4 1 15 1'),
+                                                    ('multiObjBeamForming', '-1 1 0.5'),
+                                                    ('calibDcRangeSig', '-1 0 -5 8 256'),
+                                                    ('clutterRemoval', '-1 0'), ('cfarFovCfg', '-1 0 0 6.67'),
+                                                    ('cfarFovCfg', '-1 1 -2.49 2.49'),
+                                                    ('compRangeBiasAndRxChanPhase',
+                                                     '0.0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0'),
+                                                    ('extendedMaxVelocity', '-1 0'),
+                                                    ('measureRangeBiasAndRxChanPhase', '0 1.5 0.2'),
+                                                    ('aoaFovCfg', '-1 -90 90 -90 90'), ('calibData', '0 0 0'),
+                                                    ('sensorStart', '')]
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.chirp_cfg_table_headers = {
@@ -667,7 +812,7 @@ class MainWindow(QMainWindow, QWidget):
 
         # Create the combo box
         self.select_radar_combo_box = QComboBox()
-        self.select_radar_combo_box.addItems(["IWR6843ISK", "AWR1642BOOST", "IWR1843BOOST"])
+        self.select_radar_combo_box.addItems(["IWR6843ISK", "AWR1642BOOST", "IWR1843BOOST", "AWR2944EVM"])
 
         # Add the label and combo box to the layout
         self.select_radar_layout.addWidget(select_radar_label)
@@ -675,13 +820,27 @@ class MainWindow(QMainWindow, QWidget):
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # Add the Desirable Configuration for Best default value [combo box]
-        select_default_best_Config_label = QLabel("             Desirable Configuration:")
+        select_default_best_Config_label = QLabel("     Desirable Configuration:")
         self.select_default_best_Config_combo_box = QComboBox()
         self.select_default_best_Config_combo_box.addItems(["Best Range Resolution", "Best Velocity Resolution", "Best Range"])
+
+        # Add the baudrate box
+        select_commad_baudrate = QLabel("      Command port's baudrate:")
+        self.select_commad_baudrate_combo_box = QComboBox()
+        self.select_commad_baudrate_combo_box.addItems(["115200"])
+
+        select_data_baudrate = QLabel("      Data port's baudrate:")
+        self.select_data_baudrate_combo_box = QComboBox()
+        self.select_data_baudrate_combo_box.addItems(["921600", "3125000"])
+
 
         # Add the label and combo box to the layout
         self.select_radar_layout.addWidget(select_default_best_Config_label)
         self.select_radar_layout.addWidget(self.select_default_best_Config_combo_box)
+        self.select_radar_layout.addWidget(select_commad_baudrate)
+        self.select_radar_layout.addWidget(self.select_commad_baudrate_combo_box)
+        self.select_radar_layout.addWidget(select_data_baudrate)
+        self.select_radar_layout.addWidget(self.select_data_baudrate_combo_box)
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         main_layout = QVBoxLayout()
@@ -722,6 +881,7 @@ class MainWindow(QMainWindow, QWidget):
         self.on_radar_selection_changed()
         self.select_radar_combo_box.currentTextChanged.connect(self.on_radar_selection_changed)
         self.select_default_best_Config_combo_box.currentTextChanged.connect(self.on_radar_selection_changed)
+        self.select_data_baudrate_combo_box.currentTextChanged.connect(self.on_radar_selection_changed)
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # self.radar_cfg_table.cellChanged.connect(self.on_radar_cfg_table_cell_changed)
         self.chirp_cfg_table.cellChanged.connect(self.on_chirp_cfg_table_cell_changed)
@@ -1301,12 +1461,18 @@ class MainWindow(QMainWindow, QWidget):
         # This method runs when the selection in the combo box changes
         selected_radar = self.select_radar_combo_box.currentText()
         selected_desirable_config = self.select_default_best_Config_combo_box.currentText()
+        selected_baudrate = self.select_data_baudrate_combo_box.currentText()
 
         evm_info = self.set_evm_info(selected_radar)
         self.update_table(self.evm_param_table, evm_info, selected_radar)
 
         # adding default best configurations
         self.set_best_default_config(selected_radar, selected_desirable_config)
+
+        # Add baudrate
+        self.baudrate = self.handle_baudrate(selected_baudrate)
+        print(self.baudrate)
+
 
     def show_serial_ports(self):
         # Clear existing data from the table
@@ -1317,31 +1483,63 @@ class MainWindow(QMainWindow, QWidget):
         idx = 0
 
         # Populate the table with serial ports
-        for i in range(len(ports) - 2, len(ports)): # on Linux
-        # for i in range(0, len(ports)): # on Window
-            port = ports[i]
-            self.table.insertRow(idx)
-            self.table.setItem(idx, 0, QTableWidgetItem(port.device))
+        # check either Linux or Window
 
-            # Add checkboxes in the Data and Command columns
-            data_checkbox = QCheckBox()
-            command_checkbox = QCheckBox()
-            self.table.setCellWidget(idx, 1, data_checkbox)
-            self.table.setCellWidget(idx, 2, command_checkbox)
+        if os.name == 'posix': # this is Linux or Mac OS
+            for i in range(len(ports) - 2, len(ports)): # on Linux
+                port = ports[i]
+                self.table.insertRow(idx)
+                self.table.setItem(idx, 0, QTableWidgetItem(port.device))
 
-            # Set the checkboxes automatically but did not work on Window os because of the port ordering system
-            first_port = len(ports) - 2
-            second_port = len(ports) - 1
-            if port.description != "n/a" and i == first_port:
-                command_checkbox.setChecked(True)
-            elif port.description != "n/a" and i == second_port:
-                data_checkbox.setChecked(True)
+                # Add checkboxes in the Data and Command columns
+                data_checkbox = QCheckBox()
+                command_checkbox = QCheckBox()
+                self.table.setCellWidget(idx, 1, data_checkbox)
+                self.table.setCellWidget(idx, 2, command_checkbox)
 
-            # Populate other columns
-            self.table.setItem(idx, 3, QTableWidgetItem(port.description))
-            self.table.setItem(idx, 4, QTableWidgetItem(port.manufacturer))
-            self.table.setItem(idx, 5, QTableWidgetItem(port.hwid))
-            idx += 1
+                # Set the checkboxes automatically but did not work on Window os because of the port ordering system
+                command_port = len(ports) - 2
+                data_port = len(ports) - 1
+                if port.description != "n/a" and i == data_port:
+                    command_checkbox.setChecked(True)
+                elif port.description != "n/a" and i == command_port:
+                    data_checkbox.setChecked(True)
+
+                # Populate other columns
+                self.table.setItem(idx, 3, QTableWidgetItem(port.description))
+                self.table.setItem(idx, 4, QTableWidgetItem(port.manufacturer))
+                self.table.setItem(idx, 5, QTableWidgetItem(port.hwid))
+                idx += 1
+
+        elif os.name == 'nt': # Window OS
+            for i in range(0, len(ports)): # on Window
+                port = ports[i]
+                self.table.insertRow(idx)
+                self.table.setItem(idx, 0, QTableWidgetItem(port.device))
+
+                # Add checkboxes in the Data and Command columns
+                data_checkbox = QCheckBox()
+                command_checkbox = QCheckBox()
+                self.table.setCellWidget(idx, 1, data_checkbox)
+                self.table.setCellWidget(idx, 2, command_checkbox)
+
+                # Set the checkboxes automatically but did not work on Window os because of the port ordering system
+                command_port = len(ports) - 2
+                data_port = len(ports) - 1
+                if ("Silicon Labs Dual CP2105 USB to UART Bridge: Enhanced COM Port" in port.description
+                    or "Application" in port.description
+                    or "CP2105 Dual USB to UART Bridge Controller - Enhanced Com Port" in port.description):
+                    command_checkbox.setChecked(True)
+                elif ("Silicon Labs Dual CP2105 USB to UART Bridge: Standard COM Port" in port.description
+                    or "Auxiliary" in port.description
+                    or "CP2105 Dual USB to UART Bridge Controller - Standard Com Port" in port.description):
+                    data_checkbox.setChecked(True)
+
+                # Populate other columns
+                self.table.setItem(idx, 3, QTableWidgetItem(port.description))
+                self.table.setItem(idx, 4, QTableWidgetItem(port.manufacturer))
+                self.table.setItem(idx, 5, QTableWidgetItem(port.hwid))
+                idx += 1
 
     def refresh_serial_ports(self):
         self.show_serial_ports()
@@ -1399,7 +1597,7 @@ class MainWindow(QMainWindow, QWidget):
                     self.data_port = None
                     self.command_textbox.appendPlainText("Disconnected existing data port connection.")
 
-                self.data_port = serial.Serial(port_name, baudrate=921600, timeout=2)
+                self.data_port = serial.Serial(port_name, baudrate=self.baudrate, timeout=2) #3125000, 921600
 
                 # Set buffer size (if supported)
                 buffer_size = 16384
@@ -1420,7 +1618,7 @@ class MainWindow(QMainWindow, QWidget):
                     self.command_port = None
                     self.command_textbox.appendPlainText("Disconnected existing command port connection.")
 
-                self.command_port = serial.Serial(port_name, baudrate=115200, timeout=2)
+                self.command_port = serial.Serial(port_name, baudrate=115200, timeout=2) #115200
                 self.command_port_connected = True
                 self.command_textbox.appendPlainText(
                     f"Connected to command port {self.command_port.name} with baudrate {self.command_port.baudrate}")
@@ -1475,7 +1673,7 @@ class MainWindow(QMainWindow, QWidget):
                 first_part_command = command_item.text().strip()  # Remove any spaces or newlines
                 parameters = parameter_item.text().strip()
                 full_command = f"{first_part_command} {parameters}"  # Combine command and parameters
-
+                # logging.info(full_command)
                 command_bytes = full_command.encode('latin1') + b'\n'
                 self.command_port.write(command_bytes)
                 time.sleep(0.1)
@@ -2008,6 +2206,9 @@ class MainWindow(QMainWindow, QWidget):
                 elif selected_radar == "AWR1642BOOST":
                     antenna_config = f"{self.radar_params['Number of RX Antennas']}Rx, {self.radar_params['Number of TX Antennas']}Tx"
                     antenna_options = ["4Rx, 2Tx", "4Rx, 1Tx", "2Rx, 1Tx", "1Rx, 1Tx"]
+                elif selected_radar == "AWR2944EVM":
+                    antenna_config = f"{self.radar_params['Number of RX Antennas']}Rx, {self.radar_params['Number of TX Antennas']}Tx"
+                    antenna_options = ["4Rx, 4Tx", "4Rx, 3Tx", "4Rx, 2Tx", "4Rx, 1Tx", "2Rx, 1Tx", "1Rx, 1Tx"]
                 else:
                     antenna_config = f"{self.radar_params['Number of RX Antennas']}Rx, {self.radar_params['Number of TX Antennas']}Tx"
                     antenna_options = ["4Rx, 4Tx", "4Rx, 3Tx", "4Rx, 2Tx", "4Rx, 1Tx", "2Rx, 1Tx", "1Rx, 1Tx"]
@@ -2260,13 +2461,20 @@ class MainWindow(QMainWindow, QWidget):
         if not hasattr(self, selected_radar):
             raise AttributeError(f"{selected_radar} attribute is not defined in MainWindow.")
 
-        if selected_radar in ["IWR6843ISK", "AWR1642BOOST", "IWR1843BOOST"]:
+        if selected_radar in ["IWR6843ISK", "AWR1642BOOST", "IWR1843BOOST", "AWR2944EVM"]:
             radar_obj = getattr(self, selected_radar, None)
             evm_info = radar_obj.copy()
         else:
             print(f"Unsupported radar model: {selected_radar}")
             evm_info = {}
         return evm_info
+
+    def handle_baudrate(self, selected_baudrate):
+        """
+        Data port baudrate is different for AWR2944EVM (3125000) and the rests are working well with (921600).
+        """
+        return int(selected_baudrate)
+
 
     def set_best_default_config(self,selected_radar, selected_desirable_config):
         if selected_desirable_config == "Best Range Resolution":

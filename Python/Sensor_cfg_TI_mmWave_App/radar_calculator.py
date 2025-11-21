@@ -52,6 +52,9 @@ class RadarCalculator:
         return unambiguous_velocity_km_h, velocity_resolution_km_h
 
     def calculate_virtual_array_length(self, ntx, nrx, waveform_multiplexing):
+        print("ntx", ntx)
+        print("nrx", nrx)
+        print("waveform_multiplexing", waveform_multiplexing)
         if waveform_multiplexing == "Phased-Array":
             ntx = 1
         return ntx * nrx

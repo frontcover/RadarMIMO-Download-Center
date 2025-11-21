@@ -123,11 +123,11 @@ class RadarDataParser:
         actual_length = len(payload)
         logging.debug(f"Expected length: {expected_length}, Actual length: {actual_length}")
 
-        if actual_length != expected_length:
-            raise ValueError(
-                f"Data length {actual_length} does not match expected length {expected_length}. "
-                f"Range FFT: {range_fft_size}, Virtual Antennas: {num_virtual_antennas}"
-            )
+        # if actual_length != expected_length:
+        #     raise ValueError(
+        #         f"Data length {actual_length} does not match expected length {expected_length}. "
+        #         f"Range FFT: {range_fft_size}, Virtual Antennas: {num_virtual_antennas}"
+        #     )
 
         try:
             # Parse the azimuth static heatmap
@@ -176,11 +176,11 @@ class RadarDataParser:
         actual_length = len(payload)
         logging.debug(f"Expected length: {expected_length}, Actual length: {actual_length}")
 
-        if actual_length != expected_length:
-            raise ValueError(
-                f"Data length {actual_length} does not match expected length {expected_length}. "
-                f"Range FFT: {range_fft_size}, Doppler FFT: {doppler_fft_size}"
-            )
+        # if actual_length != expected_length:
+        #     raise ValueError(
+        #         f"Data length {actual_length} does not match expected length {expected_length}. "
+        #         f"Range FFT: {range_fft_size}, Doppler FFT: {doppler_fft_size}"
+        #     )
 
         try:
             # Parse the range-Doppler heatmap

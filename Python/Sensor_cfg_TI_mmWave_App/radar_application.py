@@ -151,6 +151,8 @@ class RadarApplication:
             try:
                 if not self.data_queue.empty():
                     raw_data = self.data_queue.get_nowait()  # Non-blocking retrieval
+                    # print("raw data", raw_data)
+                    # print("len_raw data", len(raw_data))
                     magic_word_pattern = b"\x02\x01\x04\x03\x06\x05\x08\x07"
                     magic_word_index = raw_data.find(magic_word_pattern)
 
@@ -186,6 +188,8 @@ class RadarApplication:
                 tlv_type = int.from_bytes(tlv_data[tlv_index:tlv_index+4], byteorder='little')
                 tlv_length = int.from_bytes(tlv_data[tlv_index+4:tlv_index+8], byteorder='little')
                 tlv_payload = tlv_data[tlv_index+8:tlv_index+8+tlv_length]
+                # print("tlv_payload", (tlv_payload))
+                # print("Len_tlv_payload", len(tlv_payload))
                 parsed_tlv = self.parser.parse_tlv(tlv_type, tlv_payload,window)
                 tlv_list.append({'type': tlv_type, 'data': parsed_tlv, 'length': tlv_length, 'payload':tlv_payload})
                 tlv_index += 8 + tlv_length
@@ -234,6 +238,7 @@ class RadarApplication:
         min_value_range_doppler = radar_params.get("Range-Doppler Heatmap Minimum Value", 0)
         max_value_range_doppler = radar_params.get("Range-Doppler Heatmap Maximum Value", 4096)
         num_range_bins = radar_params.get("Number of Range FFT Bins", 256)
+        # print("range fft", num_range_bins)
         # num_doppler_bins = radar_params.get("Number of Doppler FFT Bins", 16)
         min_value_range_azimuth = radar_params.get("Azimuth Static Heatmap Minimum Value", 0)
         max_value_range_azimuth = radar_params.get("Azimuth Static Heatmap Maximum Value", 2000)
@@ -261,6 +266,8 @@ class RadarApplication:
             # Update the radar plots
             self.radar_visualizer.update_range_profile_plot(self.range_profile_plot_objects, x1, range_profile, x1,
                                                             noise_profile)
+
+        # logging.info(f"data check: range doppler heatmap dimensions: {len(self.range_doppler_heatmap)}")
         if self.range_doppler_heatmap:
             #
             range_doppler_heatmap = np.array(self.range_doppler_heatmap)  # Shape: (256, 16)
@@ -281,6 +288,7 @@ class RadarApplication:
                                                       min_value_range_doppler, max_value_range_doppler,
                                                       colormap='jet')
 
+        # logging.info(f"data check: Azimuth static heatmap dimensions: {len(self.azimuth_static_heatmap)}/n")
         if len(self.azimuth_static_heatmap) > 0:
             logging.debug(f"Azimuth static heatmap dimensions: {np.shape(self.azimuth_static_heatmap)}")
 
